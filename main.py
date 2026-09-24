@@ -89,7 +89,7 @@ def compute_ndcg(results, qrels, k=10):
     return np.mean(ndcg_scores)
 
 
-def compute_precision(results, qrels, k=10):
+def compute_precision(results, qrels, k=10, precision_cutoff=0):
 
     precision_scores = []
     for qid, query_results in results.items():
@@ -108,7 +108,7 @@ def compute_precision(results, qrels, k=10):
     return np.mean(precision_scores)
 
 
-def main(cname="cranfield", k1=0.9, b=0.4, topk=10):
+def main(cname="cranfield", k1=0.9, b=0.4, topk=10, precision_cutoff=0):
     """main function for searching"""
 
     """=======TODO: Choose Dataset======="""
@@ -175,7 +175,7 @@ def main(cname="cranfield", k1=0.9, b=0.4, topk=10):
     # Evaluate
     # topk = 10
     ndcg = compute_ndcg(results, qrels, k=topk)
-    precision = compute_precision(results, qrels, k=topk)
+    precision = compute_precision(results, qrels, k=topk, precision_cutoff=precision_cutoff)
 
     print(f"nDCG@{topk}: {ndcg:.4f}")
     print(f"Precision@{topk}: {precision:.4f}")
