@@ -99,7 +99,7 @@ def compute_precision(results, qrels, k=10, precision_cutoff=0):
         # We sort query_results[(docid, score)] by the score, descending
         query_results_sorted = sorted(query_results, key=lambda x: x[1], reverse=True)
         relevances_current = [qrels[qid].get(docid, 0) for docid, _ in query_results_sorted[:k]]
-        num_relevant = sum(1 for rel in relevances_current if rel > 0)
+        num_relevant = sum(1 for rel in relevances_current if rel > precision_cutoff)
         precision_scores.append(num_relevant / k)
 
     if not precision_scores:

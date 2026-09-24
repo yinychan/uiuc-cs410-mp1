@@ -15,7 +15,7 @@ def bm25_sweep():
     k1_fixed = 0.9 # Pyserini default
     b_fixed = 0.4 # Pyserini default
 
-    precision_cutoff = 2 # Pyserini default
+    precision_cutoff = 1 # Pyserini default
 
     def test_a():
         print(f"Starting Test A: b with k1 set to any fixed value")
