@@ -20,14 +20,14 @@ def bm25_sweep():
     def test_a():
         print(f"Starting Test A: b with k1 set to any fixed value")
         for b in b_range:
-            evals = main(k1=k1_fixed, b=b, precision_cutoff=precision_cutoff)
+            evals = main(k1=k1_fixed, b=b)
             ndcg_b.append(float(evals[0]))
             precision_b.append(float(evals[1]))
 
     def test_b():
         print(f"Starting Test B: k1 with b set to any fixed value")
         for k1 in k1_range:
-            evals = main(k1=k1, b=b_fixed, precision_cutoff=precision_cutoff)
+            evals = main(k1=k1, b=b_fixed)
             ndcg_k1.append(float(evals[0]))
             precision_k1.append(float(evals[1]))
 
@@ -40,7 +40,7 @@ def bm25_sweep():
         plt.title(f'NDCG@10 and Precision@10 vs. b (k1={k1_fixed})')
         plt.legend()
         plt.grid(True)
-        plt.savefig(f'outputs/task1a_bm25_ndcg_precision_vs_b_cutoff{precision_cutoff}.png')
+        plt.savefig(f'outputs/task1a_bm25_ndcg_precision_vs_b.png')
 
         print(f"Generating test A plots")
 
@@ -55,7 +55,7 @@ def bm25_sweep():
         plt.title(f'NDCG@10 and Precision@10 vs. k1 (b={b_fixed})')
         plt.legend()
         plt.grid(True)
-        plt.savefig(f'outputs/task1b_bm25_ndcg_precision_vs_k1_cutoff{precision_cutoff}.png')
+        plt.savefig(f'outputs/task1b_bm25_ndcg_precision_vs_k1.png')
 
         print(f"Generating test B plots")
 
@@ -75,8 +75,8 @@ def bm25_sweep():
     plot_test_a()
     plot_test_b()
 
-    save_to_csv('b', b_range, ndcg_b, precision_b, f'outputs/task1a_bm25_b_cutoff{precision_cutoff}.csv')
-    save_to_csv('k1', k1_range, ndcg_k1, precision_k1, f'outputs/task1b_bm25_k1_cutoff{precision_cutoff}.csv')
+    save_to_csv('b', b_range, ndcg_b, precision_b, f'outputs/task1a_bm25_b.csv')
+    save_to_csv('k1', k1_range, ndcg_k1, precision_k1, f'outputs/task1b_bm25_k1.csv')
 
     print(f"Returned: {ndcg_b}, {precision_b}, {ndcg_k1}, {precision_k1}")
 

@@ -7,8 +7,7 @@ import os
 # set_qld(mu) Query Likelihood with Dirichlet smoothing (QLD), typical default value for mu is 1000 or 2500 depending on collection length
 # set_rm3(fb_terms=10, fb_docs=10, original_query_weight=0.5, filter_terms), use_python
 
-def compare_algos():
-    cname = "apnews"
+def compare_algos(cname="apnews"):
     k1, b = 1.8, 0.8
     mu = 1000
 
