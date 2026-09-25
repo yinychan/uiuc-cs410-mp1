@@ -108,7 +108,7 @@ def compute_precision(results, qrels, k=10, precision_cutoff=0):
     return np.mean(precision_scores)
 
 
-def main(cname="cranfield", k1=0.9, b=0.4, topk=10, precision_cutoff=0):
+def main(cname="cranfield", k1=0.9, b=0.4, topk=10, precision_cutoff=0, algorithm="bm25", mu=1000, expansion=False):
     """main function for searching"""
 
     """=======TODO: Choose Dataset======="""
@@ -160,10 +160,15 @@ def main(cname="cranfield", k1=0.9, b=0.4, topk=10, precision_cutoff=0):
     # searcher.set_bm25(k1=2.1, b=0.4)
     # DONE: k1, b values and expansion T/F switch come from main function params
 
-    searcher.set_bm25(k1=k1, b=b)
-
-    # if expansion: # optional query expansion
-    #     searcher.set_rm3(20, 10, 0.5)
+    if algorithm == "bm25":
+        searcher.set_bm25(k1=k1, b=b)
+    elif algorithm == "qld":
+        searcher.set_qld(mu=mu)
+    else:
+        raise ValueError(f"Unknown algorithm: {algorithm}")
+ 
+    if expansion: # optional query expansion
+        searcher.set_rm3(20, 10, 0.5)
     """========================================="""
 
     results = search(searcher, queries, query_id_start=query_id_start)
